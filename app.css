@@ -847,3 +847,23 @@ img { -webkit-user-drag: none; }
     mask-image: linear-gradient(to right, transparent, #000 6%, #000 94%, transparent);
   }
 }
+
+/* nome do jogador escrito dentro da nuvem da tela inicial, na mesma letra e cor das artes */
+.titulo-inicio { --nuvem-w: min(44vw, 900px); }
+.nome-nuvem {
+  position: absolute;
+  inset: 0 18%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #1F4E96;
+  font-size: calc(var(--nuvem-w) * .11);
+  font-weight: 600;
+  line-height: 1;
+  white-space: nowrap;
+  overflow: hidden;
+  pointer-events: none;
+}
+.nome-nuvem:empty { display: none; }
+@media (orientation: portrait) { .titulo-inicio { --nuvem-w: min(80vw, 520px); } }
+@media (orientation: landscape) { #inicio .titulo-inicio { --nuvem-w: calc(var(--cw) * .38); } }
