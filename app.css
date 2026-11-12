@@ -1,0 +1,568 @@
+/* HelpKids web: mesmos tamanhos do app Android (values/dimens.xml); tablet = values-sw600dp */
+:root {
+  --margem: 12px;
+  --item-altura: 96px;
+  --item-margem: 6px;
+  --menu-item: 108px;
+  --menu-margem: 10px;
+  --nav-altura: 64px;
+  --nav-largura: 108px;
+  --play-altura: 80px;
+  --play-largura: 135px;
+  --redondo: 52px;
+  --aviso-texto: 56px;
+  --aviso-seta: 110px;
+  --placar-texto: 28px;
+  --placar-estrela: 30px;
+  --placar-linha: 13px;
+  --placar-progresso: 17px;
+  --menu-recorde: 18px;
+  --menu-recorde-estrela: 20px;
+  --palavra: 30px;
+  --fim-titulo: 44px;
+  --fim-estrela: 64px;
+  --nivel-largura: 175px;
+  --nivel-info: 14px;
+  --nivel-nome: 26px;
+  --avatar: 40px;
+  --titulo: 24px;
+  --texto: 18px;
+  --detalhe: 14px;
+  --icone-pais: 48px;
+  --menu-colunas: 4;
+  --grade-colunas: 3;
+  --amarelo: #FFD600;
+  --laranja: #FF7A00;
+  --verde-escuro: #1B5E20;
+  --sombra-texto: 0 2px 4px rgba(0, 0, 0, .8);
+  --topo: env(safe-area-inset-top, 0px);
+  --baixo: env(safe-area-inset-bottom, 0px);
+  --esquerda: env(safe-area-inset-left, 0px);
+  --direita: env(safe-area-inset-right, 0px);
+}
+
+/* tablet (menor lado com 600px ou mais) */
+@media (min-width: 600px) and (min-height: 600px) {
+  :root {
+    --margem: 24px;
+    --item-altura: 150px;
+    --item-margem: 10px;
+    --menu-item: 186px;
+    --menu-margem: 18px;
+    --nav-altura: 90px;
+    --nav-largura: 151px;
+    --play-altura: 110px;
+    --play-largura: 185px;
+    --redondo: 72px;
+    --aviso-texto: 88px;
+    --aviso-seta: 170px;
+    --placar-texto: 42px;
+    --placar-estrela: 46px;
+    --placar-linha: 19px;
+    --placar-progresso: 24px;
+    --menu-recorde: 26px;
+    --menu-recorde-estrela: 30px;
+    --palavra: 46px;
+    --fim-titulo: 68px;
+    --fim-estrela: 104px;
+    --nivel-largura: 250px;
+    --nivel-info: 20px;
+    --nivel-nome: 38px;
+    --avatar: 56px;
+    --titulo: 32px;
+    --texto: 24px;
+    --detalhe: 19px;
+    --icone-pais: 72px;
+  }
+}
+
+/* colunas das figuras crescem com a largura (values-wNNNdp) */
+@media (min-width: 480px) { :root { --grade-colunas: 4; } }
+@media (min-width: 640px) { :root { --grade-colunas: 5; } }
+@media (min-width: 800px) { :root { --grade-colunas: 6; } }
+@media (min-width: 1100px) { :root { --grade-colunas: 7; } }
+/* em pe: menu com 2 colunas; no celular em pe sobra largura, entao os botoes crescem */
+@media (orientation: portrait) { :root { --menu-colunas: 2; } }
+@media (orientation: portrait) and (max-width: 599px) { :root { --menu-item: min(36vw, 160px); } }
+
+* { box-sizing: border-box; }
+
+html, body {
+  margin: 0;
+  height: 100%;
+  overflow: hidden;
+  background: #2E7D32;
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  -webkit-text-size-adjust: 100%;
+  -webkit-tap-highlight-color: transparent;
+  -webkit-touch-callout: none;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+  overscroll-behavior: none;
+}
+
+button {
+  font: inherit;
+  color: inherit;
+  border: 0;
+  background: none;
+  padding: 0;
+  cursor: pointer;
+  touch-action: manipulation;
+}
+
+img { -webkit-user-drag: none; }
+
+/* ---------- telas ---------- */
+.tela {
+  position: fixed;
+  inset: 0;
+  display: none;
+  overflow: hidden;
+}
+.tela.ativa { display: block; }
+
+.fundo {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  pointer-events: none;
+}
+
+.conteudo {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  padding: calc(var(--margem) + var(--topo)) calc(var(--margem) + var(--direita))
+    calc(var(--margem) + var(--baixo)) calc(var(--margem) + var(--esquerda));
+}
+
+.rolagem {
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+/* barra de baixo: tudo alinhado a direita */
+.barra {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  flex-shrink: 0;
+}
+
+.botao-img { display: inline-flex; align-items: center; justify-content: center; }
+.botao-img img { width: 100%; height: 100%; object-fit: contain; pointer-events: none; }
+.botao-img:active, .botao-redondo:active, .item-figura:active, .item-menu button:active { transform: scale(.94); }
+.botao-img.nav { width: var(--nav-largura); height: var(--nav-altura); flex-shrink: 0; }
+
+.botao-redondo { width: var(--redondo); height: var(--redondo); flex-shrink: 0; }
+.botao-redondo img { width: 100%; height: 100%; pointer-events: none; }
+.botao-redondo.grande { width: var(--nav-altura); height: var(--nav-altura); margin: 0 16px; }
+
+.cartao {
+  background: rgba(255, 255, 255, .95);
+  border-radius: 16px;
+  padding: 12px;
+  font-size: var(--texto);
+  font-weight: bold;
+}
+.cartao.selecionado { background: #fff; box-shadow: inset 0 0 0 4px #43A047; }
+
+/* plaquinha da palavra escrita */
+.plaquinha {
+  display: inline-block;
+  visibility: hidden;
+  max-width: 100%;
+  padding: 4px 18px 6px;
+  background: rgba(255, 255, 255, .95);
+  border: 3px solid #2E7D32;
+  border-radius: 14px;
+  color: var(--verde-escuro);
+  font-size: var(--palavra);
+  font-weight: bold;
+  line-height: 1.15;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+.plaquinha.visivel { visibility: visible; animation: aparecer .35s cubic-bezier(.3, 1.6, .5, 1); }
+
+@keyframes aparecer {
+  from { opacity: 0; transform: scale(.6); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+/* ---------- tela inicial ---------- */
+#inicio { background: linear-gradient(#D4E9F1, #D1E3BB); }
+.inicio-conteudo {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: calc(var(--margem) + var(--topo) + var(--redondo)) calc(var(--margem) + var(--direita))
+    calc(var(--margem) + var(--baixo)) calc(var(--margem) + var(--esquerda));
+}
+.welcome { flex: 1; min-height: 0; width: 100%; object-fit: contain; }
+.botao-img.play { width: var(--play-largura); height: var(--play-altura); margin-top: var(--margem); flex-shrink: 0; }
+.chip-jogador {
+  position: absolute;
+  top: calc(var(--margem) + var(--topo));
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 6px 16px;
+  color: var(--verde-escuro);
+  white-space: nowrap;
+  max-width: 60vw;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.canto-esquerdo { position: absolute; top: calc(var(--margem) + var(--topo)); left: calc(var(--margem) + var(--esquerda)); }
+
+/* ---------- menu ---------- */
+.grade-menu {
+  display: grid;
+  grid-template-columns: repeat(var(--menu-colunas), auto);
+  justify-content: center;
+  align-content: center;
+  min-height: 100%;
+}
+.item-menu { display: flex; flex-direction: column; align-items: center; margin: var(--menu-margem); }
+.item-menu button { width: var(--menu-item); height: var(--menu-item); }
+.item-menu button img { width: 100%; height: 100%; object-fit: contain; pointer-events: none; }
+.recorde-menu {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  min-height: calc(var(--menu-recorde) * 1.3);
+  color: var(--amarelo);
+  font-size: var(--menu-recorde);
+  font-weight: bold;
+  text-shadow: 0 2px 5px rgba(0, 0, 0, .8);
+}
+.recorde-menu img { width: var(--menu-recorde-estrela); height: var(--menu-recorde-estrela); }
+.nome-barra {
+  flex: 1;
+  margin-left: 10px;
+  color: #fff;
+  font-size: var(--texto);
+  font-weight: bold;
+  text-shadow: var(--sombra-texto);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* ---------- figuras da categoria ---------- */
+.grade-figuras { display: grid; grid-template-columns: repeat(var(--grade-colunas), 1fr); }
+.item-figura { height: var(--item-altura); margin: var(--item-margem); padding: 2px; min-width: 0; }
+.item-figura img { width: 100%; height: 100%; object-fit: contain; pointer-events: none; }
+.lugar-palavra { flex: 1; min-width: 0; display: flex; align-items: center; overflow: hidden; }
+
+/* ---------- jogo ---------- */
+.placar {
+  align-self: flex-end;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  padding: 6px 14px;
+  background: rgba(0, 0, 0, .45);
+  border-radius: 16px;
+  color: #fff;
+  text-shadow: 0 3px 6px rgba(0, 0, 0, .8);
+}
+.placar-pontos { display: flex; align-items: center; gap: 6px; font-size: var(--placar-texto); font-weight: bold; position: relative; }
+.placar-pontos img { width: var(--placar-estrela); height: var(--placar-estrela); }
+.placar-pontos span#txtPontos { color: var(--amarelo); min-width: 1.2em; text-align: right; }
+.ganho { position: absolute; right: 100%; margin-right: 4px; color: #B2FF59; opacity: 0; }
+.ganho.sobe { animation: sobe 1.4s ease-out; }
+@keyframes sobe {
+  0%, 35% { opacity: 1; transform: translateY(0); }
+  100% { opacity: 0; transform: translateY(-36px); }
+}
+.estrela-pula { animation: pula .4s cubic-bezier(.3, 2, .5, 1); }
+@keyframes pula { from { transform: scale(1.5); } to { transform: scale(1); } }
+.progresso { font-size: var(--placar-progresso); letter-spacing: 1px; color: var(--amarelo); }
+.placar-linha { font-size: var(--placar-linha); font-weight: bold; }
+.placar-linha:empty { display: none; }
+
+.area-jogo { flex: 1; min-height: 0; display: flex; }
+.coluna-som { flex: 1; min-width: 0; min-height: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; }
+.botao-img.som { flex: 1; min-height: 0; width: 100%; padding: var(--item-margem); }
+.coluna-som .plaquinha { margin-top: 4px; }
+.grade-opcoes {
+  flex: 2;
+  min-width: 0;
+  min-height: 0;
+  display: grid;
+  /* minmax(0, 1fr): a figura se ajusta a celula, e nao a celula a figura */
+  grid-template-columns: repeat(var(--colunas, 2), minmax(0, 1fr));
+  grid-auto-rows: minmax(0, 1fr);
+}
+.opcao { min-width: 0; min-height: 0; margin: var(--item-margem); padding: 4px; border-radius: 50%; }
+.opcao img { width: 100%; height: 100%; object-fit: contain; pointer-events: none; }
+.opcao.ajuda {
+  background: radial-gradient(closest-side, rgba(255, 245, 157, .95), rgba(255, 214, 0, .7) 60%, rgba(255, 214, 0, 0));
+  animation: pulsa .45s ease-in-out infinite alternate;
+}
+.opcao.ajuda img { filter: drop-shadow(0 0 6px #FFD600) drop-shadow(0 0 10px #FFAB00); }
+@keyframes pulsa { from { transform: scale(1); } to { transform: scale(1.12); } }
+
+/* em pe: som em cima, figuras embaixo (layout-port) */
+@media (orientation: portrait) {
+  .area-jogo { flex-direction: column; }
+  .coluna-som { flex: 1; }
+  .grade-opcoes { flex: 2; }
+}
+
+/* ---------- camadas por cima do jogo ---------- */
+.camada { position: absolute; inset: 0; display: none; }
+.camada.visivel { display: block; }
+.escura { background: rgba(16, 32, 48, .88); }
+.camada-rolagem {
+  position: absolute;
+  inset: 0;
+  overflow-y: auto;
+  display: flex;
+  padding: calc(var(--margem) + var(--topo)) calc(var(--margem) + var(--direita))
+    calc(var(--margem) + var(--baixo) + var(--nav-altura)) calc(var(--margem) + var(--esquerda));
+}
+.fogos { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; }
+
+.aviso { background: rgba(0, 0, 0, .4); }
+.aviso-meio {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.aviso-texto {
+  font-size: var(--aviso-texto);
+  font-weight: bold;
+  text-shadow: 0 4px 8px rgba(0, 0, 0, .85);
+  animation: cresce .45s cubic-bezier(.3, 1.8, .5, 1);
+}
+@keyframes cresce { from { transform: scale(.3); } to { transform: scale(1); } }
+.seta { width: var(--aviso-seta); height: var(--aviso-seta); display: none; }
+.seta.gira { display: block; animation: gira .9s ease-in-out; }
+@keyframes gira { from { transform: rotate(0); } to { transform: rotate(360deg); } }
+
+.titulo-grande {
+  color: #fff;
+  font-size: var(--fim-titulo);
+  font-weight: bold;
+  text-align: center;
+  text-shadow: var(--sombra-texto);
+}
+.fim-conteudo, .nivel-conteudo { margin: auto; display: flex; flex-direction: column; align-items: center; position: relative; }
+.fim-estrelas { display: flex; align-items: flex-end; margin: 8px 0; }
+.fim-estrelas img { width: var(--fim-estrela); height: var(--fim-estrela); margin: 0 4px; transform: scale(0); }
+.fim-estrelas img.meio { margin-bottom: calc(var(--fim-estrela) / 4); }
+.fim-estrelas img.mostra { animation: estrela .4s cubic-bezier(.3, 2.2, .5, 1) forwards; }
+@keyframes estrela { from { transform: scale(0); } to { transform: scale(1); } }
+.fim-pontos { color: var(--amarelo); font-size: var(--placar-texto); font-weight: bold; text-shadow: var(--sombra-texto); }
+.fim-recorde { color: #B2FF59; font-size: var(--placar-linha); font-weight: bold; margin-top: 4px; display: none; }
+.fim-recorde.visivel { display: block; }
+.fim-posicao { color: #fff; font-size: var(--texto); margin-top: 8px; text-align: center; }
+.fim-botoes { display: flex; align-items: center; margin-top: 16px; }
+
+.nivel-jogador { color: #fff; font-size: var(--placar-linha); font-weight: bold; margin-bottom: 4px; }
+.botoes-nivel { display: flex; flex-wrap: wrap; justify-content: center; margin-top: 8px; }
+.botao-nivel {
+  width: var(--nivel-largura);
+  margin: 10px;
+  padding: 14px;
+  border-radius: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  color: #fff;
+  opacity: .8;
+  transition: transform .15s;
+}
+.botao-nivel.preferido { opacity: 1; transform: scale(1.08); box-shadow: 0 0 0 4px rgba(255, 255, 255, .85); }
+.botao-nivel:active { transform: scale(.96); }
+.botao-nivel .nome { font-size: var(--nivel-nome); font-weight: bold; text-shadow: 0 2px 4px rgba(0, 0, 0, .4); }
+.botao-nivel .info { font-size: var(--nivel-info); margin-top: 4px; text-align: center; white-space: pre-line; }
+.canto-baixo { position: absolute; right: calc(var(--margem) + var(--direita)); bottom: calc(var(--margem) + var(--baixo)); }
+
+/* ---------- jogadores e ranking ---------- */
+.cabecalho { display: flex; align-items: center; flex-shrink: 0; margin-bottom: 8px; }
+.titulo-tela {
+  flex: 1;
+  margin: 0;
+  color: #fff;
+  font-size: var(--titulo);
+  text-shadow: var(--sombra-texto);
+}
+.titulo-tela.escuro { color: #263238; text-shadow: none; }
+.icone-titulo { width: var(--redondo); height: var(--redondo); margin-right: 10px; }
+
+.grade-jogadores { display: grid; grid-template-columns: repeat(2, 1fr); }
+@media (orientation: portrait) and (max-width: 599px) { .grade-jogadores { grid-template-columns: 1fr; } }
+.cartao-jogador { display: flex; align-items: center; margin: 6px; text-align: left; color: #263238; min-width: 0; }
+.avatar {
+  flex-shrink: 0;
+  width: var(--avatar);
+  height: var(--avatar);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  font-size: calc(var(--avatar) * .5);
+  font-weight: bold;
+  margin-right: 12px;
+}
+.cartao-jogador .nome { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.novo-jogador { display: block; margin: 12px auto 0; color: var(--verde-escuro); padding: 12px 24px; }
+.dica { color: #fff; text-align: center; font-size: var(--detalhe); text-shadow: var(--sombra-texto); }
+
+.filtros { display: flex; overflow-x: auto; flex-shrink: 0; padding-bottom: 4px; }
+.filtro {
+  flex-shrink: 0;
+  margin: 4px;
+  padding: 8px 14px;
+  border-radius: 16px;
+  background: rgba(255, 255, 255, .9);
+  color: #263238;
+  font-size: var(--detalhe);
+  font-weight: bold;
+}
+.filtro.selecionado { background: #43A047; color: #fff; }
+.linha-ranking { display: flex; align-items: center; margin: 6px; padding: 10px 12px; }
+.linha-ranking .posicao {
+  width: calc(var(--avatar) * 1.2);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  color: #455A64;
+  font-size: var(--detalhe);
+  margin-right: 8px;
+}
+.linha-ranking .posicao img { width: calc(var(--avatar) * .8); height: calc(var(--avatar) * .8); }
+.linha-ranking .quem { flex: 1; min-width: 0; }
+.linha-ranking .nome { color: #263238; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.linha-ranking .detalhe { color: #607D8B; font-size: var(--detalhe); font-weight: normal; }
+.linha-ranking .pontos { display: flex; align-items: center; gap: 4px; color: #E65100; font-size: var(--texto); }
+.linha-ranking .pontos img { width: var(--placar-estrela); height: var(--placar-estrela); }
+.vazio { margin: 6px; padding: 14px; color: #263238; font-size: var(--texto); }
+
+/* ---------- area dos pais ---------- */
+.tela-clara { background: #ECEFF1; }
+.pais-conteudo { max-width: 900px; margin: 0 auto; }
+.pais-jogador { color: #263238; font-size: var(--texto); font-weight: bold; margin-top: 6px; }
+.cartao-pais {
+  display: flex;
+  align-items: center;
+  margin-top: 10px;
+  padding: 14px;
+  background: #fff;
+  border-radius: 14px;
+  color: #263238;
+  font-size: var(--texto);
+}
+.linha-som { justify-content: space-between; cursor: pointer; }
+.cartao-pais .icone { width: var(--icone-pais); height: var(--icone-pais); flex-shrink: 0; margin-right: 14px; object-fit: contain; }
+.cartao-pais .texto { flex: 1; min-width: 0; }
+.cartao-pais .nome { display: flex; align-items: center; gap: 6px; font-weight: bold; }
+.cartao-pais .nome img { width: var(--menu-recorde-estrela); height: var(--menu-recorde-estrela); }
+.cartao-pais .det { color: #455A64; font-size: var(--detalhe); margin-top: 2px; }
+.chave {
+  appearance: none;
+  -webkit-appearance: none;
+  width: 52px;
+  height: 30px;
+  border-radius: 15px;
+  background: #B0BEC5;
+  position: relative;
+  cursor: pointer;
+  transition: background .2s;
+  flex-shrink: 0;
+}
+.chave::after {
+  content: "";
+  position: absolute;
+  top: 3px;
+  left: 3px;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: #fff;
+  transition: left .2s;
+}
+.chave:checked { background: #43A047; }
+.chave:checked::after { left: 25px; }
+.botao-texto {
+  display: block;
+  margin: 14px 0 0 auto;
+  padding: 10px 16px;
+  border-radius: 8px;
+  background: #CFD8DC;
+  color: #263238;
+  font-size: var(--detalhe);
+  font-weight: bold;
+}
+.creditos { color: #546E7A; font-size: var(--detalhe); margin-top: 16px; }
+
+/* ---------- dialogo e aviso curto ---------- */
+.dialogo-fundo {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, .5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+  z-index: 10;
+}
+.dialogo-fundo[hidden] { display: none; }
+.dialogo {
+  width: min(420px, 100%);
+  background: #fff;
+  border-radius: 16px;
+  padding: 20px;
+  color: #263238;
+  user-select: text;
+  -webkit-user-select: text;
+}
+.dialogo-titulo { font-size: 20px; font-weight: bold; }
+.dialogo-titulo:empty, .dialogo-texto:empty { display: none; }
+.dialogo-texto { font-size: 17px; margin-top: 10px; }
+.dialogo-campo {
+  width: 100%;
+  margin-top: 14px;
+  padding: 10px 12px;
+  font-size: 20px; /* 16px ou mais: o iPhone nao da zoom ao tocar */
+  border: 2px solid #B0BEC5;
+  border-radius: 10px;
+}
+.dialogo-campo:focus { outline: none; border-color: #43A047; }
+.dialogo-botoes { display: flex; justify-content: flex-end; gap: 8px; margin-top: 18px; }
+.dialogo-botoes .botao-texto { margin: 0; font-size: 17px; background: none; color: #43A047; }
+.dialogo-botoes .forte { background: #43A047; color: #fff; }
+
+.toast {
+  position: fixed;
+  left: 50%;
+  bottom: calc(24px + var(--baixo));
+  transform: translateX(-50%);
+  padding: 10px 18px;
+  border-radius: 20px;
+  background: rgba(33, 33, 33, .9);
+  color: #fff;
+  font-size: 16px;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity .2s;
+  z-index: 11;
+}
+.toast.visivel { opacity: 1; }
