@@ -42,37 +42,38 @@
 }
 
 /* tablet (menor lado com 600px ou mais) */
+/* tablet e telas maiores: os tamanhos acompanham o menor lado da tela */
 @media (min-width: 600px) and (min-height: 600px) {
   :root {
-    --margem: 24px;
-    --item-altura: 150px;
-    --item-margem: 10px;
-    --menu-item: 186px;
-    --menu-margem: 18px;
-    --nav-altura: 90px;
-    --nav-largura: 151px;
-    --play-altura: 110px;
-    --play-largura: 185px;
-    --redondo: 72px;
-    --aviso-texto: 88px;
-    --aviso-seta: 170px;
-    --placar-texto: 42px;
-    --placar-estrela: 46px;
-    --placar-linha: 19px;
-    --placar-progresso: 24px;
-    --menu-recorde: 26px;
-    --menu-recorde-estrela: 30px;
-    --palavra: 46px;
-    --fim-titulo: 68px;
-    --fim-estrela: 104px;
-    --nivel-largura: 250px;
-    --nivel-info: 20px;
-    --nivel-nome: 38px;
-    --avatar: 56px;
-    --titulo: 32px;
-    --texto: 24px;
-    --detalhe: 19px;
-    --icone-pais: 72px;
+    --margem: clamp(24px, 3vmin, 43px);
+    --item-altura: clamp(150px, 18.75vmin, 270px);
+    --item-margem: clamp(10px, 1.25vmin, 18px);
+    --menu-item: clamp(186px, 23.25vmin, 335px);
+    --menu-margem: clamp(18px, 2.25vmin, 32px);
+    --nav-altura: clamp(90px, 11.25vmin, 162px);
+    --nav-largura: clamp(151px, 18.88vmin, 272px);
+    --play-altura: clamp(110px, 13.75vmin, 198px);
+    --play-largura: clamp(185px, 23.13vmin, 333px);
+    --redondo: clamp(72px, 9vmin, 130px);
+    --aviso-texto: clamp(88px, 11vmin, 158px);
+    --aviso-seta: clamp(170px, 21.25vmin, 306px);
+    --placar-texto: clamp(42px, 5.25vmin, 76px);
+    --placar-estrela: clamp(46px, 5.75vmin, 83px);
+    --placar-linha: clamp(19px, 2.38vmin, 34px);
+    --placar-progresso: clamp(24px, 3vmin, 43px);
+    --menu-recorde: clamp(26px, 3.25vmin, 47px);
+    --menu-recorde-estrela: clamp(30px, 3.75vmin, 54px);
+    --palavra: clamp(46px, 5.75vmin, 83px);
+    --fim-titulo: clamp(68px, 8.5vmin, 122px);
+    --fim-estrela: clamp(104px, 13vmin, 187px);
+    --nivel-largura: clamp(250px, 31.25vmin, 450px);
+    --nivel-info: clamp(20px, 2.5vmin, 36px);
+    --nivel-nome: clamp(38px, 4.75vmin, 68px);
+    --avatar: clamp(56px, 7vmin, 101px);
+    --titulo: clamp(32px, 4vmin, 58px);
+    --texto: clamp(24px, 3vmin, 43px);
+    --detalhe: clamp(19px, 2.38vmin, 34px);
+    --icone-pais: clamp(72px, 9vmin, 130px);
   }
 }
 
@@ -87,16 +88,17 @@
 
 * { box-sizing: border-box; }
 
-/* letra arredondada dos desenhos das telas (Sniglet, licenca OFL; fica no app, funciona sem internet) */
-@font-face { font-family: "Sniglet"; src: url("fontes/Sniglet-Regular.ttf") format("truetype"); font-weight: 400; font-display: swap; }
-@font-face { font-family: "Sniglet"; src: url("fontes/Sniglet-ExtraBold.ttf") format("truetype"); font-weight: 700 800; font-display: swap; }
+/* letra arredondada igual a das artes (Fredoka, licenca OFL; fica no app, funciona sem internet) */
+@font-face { font-family: "Fredoka"; src: url("fontes/Fredoka-Regular.ttf") format("truetype"); font-weight: 400; font-display: swap; }
+@font-face { font-family: "Fredoka"; src: url("fontes/Fredoka-SemiBold.ttf") format("truetype"); font-weight: 600 900; font-display: swap; }
 
 html, body {
   margin: 0;
   height: 100%;
   overflow: hidden;
   background: #2E7D32;
-  font-family: "Sniglet", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  font-family: "Fredoka", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  font-synthesis: none; /* nunca engrossar a letra artificialmente */
   -webkit-text-size-adjust: 100%;
   -webkit-tap-highlight-color: transparent;
   -webkit-touch-callout: none;
@@ -229,7 +231,7 @@ img { -webkit-user-drag: none; }
   flex-shrink: 0;
   margin-bottom: 4px;
 }
-.logo { height: clamp(48px, 10vh, 110px); width: auto; justify-self: start; pointer-events: none; }
+.logo { height: clamp(48px, 10vh, 180px); width: auto; justify-self: start; pointer-events: none; }
 .topo-lado { justify-self: end; }
 
 /* ---------- tela inicial ---------- */
@@ -247,7 +249,7 @@ img { -webkit-user-drag: none; }
   top: calc(var(--margem) * .6 + var(--topo));
   left: 50%;
   transform: translateX(-50%);
-  width: min(44vw, 560px);
+  width: min(44vw, 900px);
   font-size: clamp(18px, 3.6vw, 44px);
 }
 .nuvem-inicio:active { transform: translateX(-50%) scale(.95); }
@@ -256,7 +258,7 @@ img { -webkit-user-drag: none; }
   left: 50%;
   bottom: calc(var(--margem) * 1.5 + var(--baixo));
   transform: translateX(-50%);
-  width: min(26vw, 320px);
+  width: min(26vw, 560px);
   aspect-ratio: 700 / 260;
 }
 .play-inicio:active { transform: translateX(-50%) scale(.94); }
@@ -625,7 +627,7 @@ img { -webkit-user-drag: none; }
 /* caixa de papel creme com estrela em cima e X no canto (desenho da tela 03) */
 .dialogo {
   position: relative;
-  width: min(520px, 100%);
+  width: min(clamp(520px, 52vmin, 820px), 100%);
   margin-top: 24px;
   background: #FFF4DE;
   border: 3px dashed #E3B77B;
@@ -687,8 +689,8 @@ img { -webkit-user-drag: none; }
 
 /* ---------- artes com a escrita pronta (titulos, botoes, niveis) ---------- */
 .titulo { margin: 0; line-height: 0; justify-self: center; }
-.titulo img { height: clamp(52px, 12vh, 124px); width: auto; max-width: 52vw; pointer-events: none; }
-.titulo-pais img { height: clamp(48px, 9vh, 96px); }
+.titulo img { height: clamp(52px, 12vh, 200px); width: auto; max-width: 52vw; pointer-events: none; }
+.titulo-pais img { height: clamp(48px, 9vh, 150px); }
 .cabecalho .titulo { flex: 1; text-align: left; }
 
 .titulo-inicio {
@@ -696,14 +698,14 @@ img { -webkit-user-drag: none; }
   top: calc(var(--margem) * .6 + var(--topo));
   left: 50%;
   transform: translateX(-50%);
-  width: min(44vw, 560px);
+  width: min(44vw, 900px);
 }
 .titulo-inicio img, .botao-arte img { display: block; width: 100%; height: auto; pointer-events: none; }
 .titulo-inicio:active { transform: translateX(-50%) scale(.95); }
 /* nome do jogador escolhido, numa plaquinha embaixo da nuvem */
 .etiqueta-jogador {
   position: absolute;
-  top: calc(var(--margem) * .6 + var(--topo) + min(44vw, 560px) * 260 / 900);
+  top: calc(var(--margem) * .6 + var(--topo) + min(44vw, 900px) * 260 / 900);
   left: 50%;
   transform: translateX(-50%);
   padding: 2px 18px;
@@ -725,8 +727,8 @@ img { -webkit-user-drag: none; }
 
 .botao-arte { display: inline-block; flex-shrink: 0; }
 .botao-arte:active { transform: scale(.95); }
-.novo-jogador { display: block; width: clamp(200px, 26vw, 300px); margin: 14px auto 0; }
-.dialogo-botoes .botao-arte { width: clamp(120px, 34%, 170px); }
+.novo-jogador { display: block; width: clamp(200px, 26vw, 480px); margin: 14px auto 0; }
+.dialogo-botoes .botao-arte { width: clamp(120px, 34%, 240px); }
 .dialogo-titulo-img { display: block; width: min(80%, 380px); margin: 0 auto; pointer-events: none; }
 .dialogo-titulo-img[hidden] { display: none; }
 
@@ -748,8 +750,16 @@ img { -webkit-user-drag: none; }
 /* deitado: o nome do jogador fica a direita da nuvem (embaixo dela fica a estrela da placa) */
 @media (orientation: landscape) {
   .etiqueta-jogador {
-    top: calc(var(--margem) * .6 + var(--topo) + min(44vw, 560px) * 130 / 900);
-    left: calc(50% + min(44vw, 560px) / 2 + 8px);
+    top: calc(var(--margem) * .6 + var(--topo) + min(44vw, 900px) * 130 / 900);
+    left: calc(50% + min(44vw, 900px) / 2 + 8px);
     transform: translateY(-50%);
   }
+}
+
+/* veu creme por cima do fundo das atividades: o desenho aparece de leve e as figuras se destacam */
+.veu { position: absolute; inset: 0; background: rgba(255, 251, 242, .65); pointer-events: none; }
+
+/* menu deitado: os botoes crescem com a altura da tela, para as 2 fileiras ocuparem o espaco */
+@media (orientation: landscape) {
+  .item-menu button { width: max(var(--menu-item), min(27vh, 18vw)); height: calc(max(var(--menu-item), min(27vh, 18vw)) * 1.1); }
 }

@@ -392,7 +392,7 @@
     });
   }
   window.addEventListener('resize', ajustarNuvens);
-  // a letra Sniglet carrega depois; mede de novo quando ela chegar
+  // a letra Fredoka carrega depois; mede de novo quando ela chegar
   if (document.fonts && document.fonts.ready) document.fonts.ready.then(ajustarNuvens);
 
   document.querySelectorAll('[data-volta]').forEach(function (b) {
