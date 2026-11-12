@@ -813,3 +813,37 @@ img { -webkit-user-drag: none; }
     mask-image: linear-gradient(transparent, #000 4%, #000 96%, transparent);
   }
 }
+
+/* tela deitada mais larga que o cenario: as laterais continuam o proprio cenario, esticando a
+   beirada dele (so ceu, folhas, flores e grama) e desfocando, para nao ter emenda */
+.inicio-lado { display: none; }
+@media (orientation: landscape) and (min-aspect-ratio: 16/9) {
+  .inicio-campo { display: none; }
+  .inicio-lado {
+    display: block;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: calc(var(--cx) + var(--cw) * .06);
+    overflow: hidden;
+    pointer-events: none;
+  }
+  .inicio-lado.esq { left: 0; }
+  .inicio-lado.dir { right: 0; }
+  .inicio-lado::before {
+    content: "";
+    position: absolute;
+    inset: -24px;
+    background-image: url("img/fundo_inicio.webp");
+    background-repeat: no-repeat;
+    /* a faixa de 8% da beirada do cenario ocupa a lateral inteira */
+    background-size: calc((var(--cx) + var(--cw) * .06 + 48px) / .08) calc(100% - 48px + 48px);
+    filter: blur(14px) brightness(1.04);
+  }
+  .inicio-lado.esq::before { background-position: left center; }
+  .inicio-lado.dir::before { background-position: right center; }
+  .inicio-cena {
+    -webkit-mask-image: linear-gradient(to right, transparent, #000 6%, #000 94%, transparent);
+    mask-image: linear-gradient(to right, transparent, #000 6%, #000 94%, transparent);
+  }
+}
