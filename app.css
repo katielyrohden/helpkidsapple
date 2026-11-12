@@ -873,3 +873,26 @@ img { -webkit-user-drag: none; }
 .nome-nuvem:empty { display: none; }
 @media (orientation: portrait) { .titulo-inicio { --nuvem-w: min(80vw, 520px); } }
 @media (orientation: landscape) { #inicio .titulo-inicio { --nuvem-w: calc(var(--cw) * .38); } }
+
+/* tela mais larga que 16:9: versao panoramica do cenario (3200 x 1080, o meio igual ao fundo_inicio),
+   na altura da tela e centralizada; so se a tela for mais larga ainda sobra a lateral desfocada */
+.inicio-largo { display: none; }
+@media (orientation: landscape) and (min-aspect-ratio: 16/9) {
+  .inicio-largo {
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 50%;
+    height: 100%;
+    width: auto;
+    transform: translateX(-50%);
+    pointer-events: none;
+  }
+  .inicio-cena { visibility: hidden; }
+}
+@media (orientation: landscape) and (min-aspect-ratio: 3200/1080) {
+  .inicio-largo {
+    -webkit-mask-image: linear-gradient(to right, transparent, #000 4%, #000 96%, transparent);
+    mask-image: linear-gradient(to right, transparent, #000 4%, #000 96%, transparent);
+  }
+}

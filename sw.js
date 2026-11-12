@@ -1,7 +1,7 @@
 // Guarda todos os arquivos do HelpKids no aparelho, para funcionar sem internet.
 // A versao e a lista de arquivos sao preenchidas por ferramentas/MontarWeb.java; quando qualquer
 // arquivo muda, a versao muda e o aparelho baixa tudo de novo na proxima vez que abrir com internet.
-var VERSAO = 'a3a789331846';
+var VERSAO = '352fdcd41ad6';
 var ARQUIVOS = [
   './',
   './app.css',
@@ -69,6 +69,7 @@ var ARQUIVOS = [
   './img/formas.webp',
   './img/fundo.webp',
   './img/fundo_inicio.webp',
+  './img/fundo_inicio_largo.webp',
   './img/fundoanimal.webp',
   './img/fundocores.webp',
   './img/fundofood.webp',
