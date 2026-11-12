@@ -8,13 +8,13 @@
 
   // mesma ordem de Pontuacao.CATEGORIAS no Android (os recordes usam o id)
   var CATEGORIAS = [
-    {id: 'alfabeto', nome: 'Alfabeto', icone: 'alfabeto', fundo: 'fundoletras', lista: 'getAlfabeto'},
+    {id: 'alfabeto', nome: 'Letras', icone: 'alfabeto', fundo: 'fundoletras', lista: 'getAlfabeto'},
     {id: 'numeros', nome: 'Números', icone: 'numeros', fundo: 'fundonumero', lista: 'getNumeros'},
     {id: 'formas', nome: 'Formas', icone: 'formas', fundo: 'fundoformas', lista: 'getFormas'},
     {id: 'frutas', nome: 'Frutas', icone: 'food', fundo: 'fundofood', lista: 'getFood'},
     {id: 'animais', nome: 'Animais', icone: 'animais', fundo: 'fundoanimal', lista: 'getAnimais'},
     {id: 'cores', nome: 'Cores', icone: 'cores', fundo: 'fundocores', lista: 'getCores'},
-    {id: 'corpo', nome: 'Corpo', icone: 'corpo', fundo: 'fundo', lista: 'getCorpo'},
+    {id: 'corpo', nome: 'Corpo Humano', icone: 'corpo', fundo: 'fundo', lista: 'getCorpo'},
     {id: 'alimentos', nome: 'Alimentos', icone: 'alimentos', fundo: 'fundofood', lista: 'getAlimentos'}
   ];
 
@@ -36,6 +36,9 @@
   var CORES_JOGADOR = ['#E53935', '#1E88E5', '#43A047', '#FB8C00', '#8E24AA', '#00897B', '#D81B60', '#6D4C41'];
 
   function $(id) { return document.getElementById(id); }
+
+  /** caminho de uma imagem do app (img/nome.webp, .png ou .jpg; a lista vem de dados.js) */
+  function imagem(nome) { return (window.IMAGENS && window.IMAGENS[nome]) || 'img/' + nome + '.png'; }
 
   function el(tag, classe, filhos) {
     var e = document.createElement(tag);
@@ -375,7 +378,22 @@
     document.querySelectorAll('.tela').forEach(function (t) { t.classList.toggle('ativa', t.id === id); });
     telaAtual = id;
     if (aoMostrar[id]) aoMostrar[id](dados);
+    ajustarNuvens();
   }
+
+  /** diminui a letra do texto das nuvens de titulo ate caber (nomes compridos, celular) */
+  function ajustarNuvens() {
+    document.querySelectorAll('.tela.ativa .nuvem span').forEach(function (t) {
+      t.style.fontSize = '';
+      if (t.scrollWidth > t.clientWidth && t.clientWidth > 0) {
+        var atual = parseFloat(getComputedStyle(t).fontSize);
+        t.style.fontSize = Math.max(10, atual * t.clientWidth / t.scrollWidth * 0.97) + 'px';
+      }
+    });
+  }
+  window.addEventListener('resize', ajustarNuvens);
+  // a letra Sniglet carrega depois; mede de novo quando ela chegar
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(ajustarNuvens);
 
   document.querySelectorAll('[data-volta]').forEach(function (b) {
     b.addEventListener('click', function () {
@@ -395,6 +413,7 @@
       campo.value = '';
       campo.placeholder = (opcoes.campo && opcoes.campo.dica) || '';
       campo.inputMode = (opcoes.campo && opcoes.campo.numero) ? 'numeric' : 'text';
+      campo.classList.toggle('numero', !!(opcoes.campo && opcoes.campo.numero));
       campo.type = (opcoes.campo && opcoes.campo.numero) ? 'tel' : 'text';
       campo.maxLength = (opcoes.campo && opcoes.campo.max) || 100;
       campo.autocapitalize = 'words';
@@ -405,6 +424,7 @@
         fundo.hidden = true;
         $('dialogoCaixa').onsubmit = null;
         $('dialogoCancelar').onclick = null;
+        $('dialogoFechar').onclick = null;
         fundo.onclick = null;
         resolver(valor);
       }
@@ -413,6 +433,7 @@
         fechar(opcoes.campo ? campo.value : true);
       };
       $('dialogoCancelar').onclick = function () { fechar(null); };
+      $('dialogoFechar').onclick = function () { fechar(null); };
       fundo.onclick = function (e) { if (e.target === fundo) fechar(null); };
     });
   }
@@ -428,7 +449,7 @@
 
   function medalha(estrelas) {
     if (estrelas <= 0) return null;
-    return img('img/medalha_' + (estrelas >= 3 ? 'ouro' : estrelas === 2 ? 'prata' : 'bronze') + '.png');
+    return img(imagem('medalha_' + (estrelas >= 3 ? 'ouro' : estrelas === 2 ? 'prata' : 'bronze')));
   }
 
   function mostrarPlaquinha(elemento, texto) {
@@ -456,7 +477,7 @@
 
   aoMostrar.inicio = function () {
     var j = Jogadores.atual();
-    $('btnJogador').textContent = j ? 'Jogador: ' + j : 'Quem vai jogar?';
+    $('txtJogador').textContent = j ? 'Jogador: ' + j : 'Quem vai jogar?';
   };
 
   $('btnPlay').addEventListener('click', function () {
@@ -483,7 +504,7 @@
   (function montarMenu() {
     var grade = $('gradeMenu');
     CATEGORIAS.forEach(function (cat) {
-      var botao = el('button', '', [img('img/' + cat.icone + '.png')]);
+      var botao = el('button', '', [img(imagem(cat.icone))]);
       botao.setAttribute('aria-label', cat.nome);
       botao.addEventListener('click', function () { mostrar('categoria', cat); });
       var recorde = el('div', 'recorde-menu');
@@ -494,13 +515,14 @@
 
   aoMostrar.menu = function () {
     var j = Jogadores.atual();
-    $('menuJogador').textContent = j || '';
+    // trofeu: soma das melhores partidas do jogador em todas as categorias
+    $('menuPontos').textContent = String(j ? CATEGORIAS.reduce(function (t, c) { return t + Pontuacao.recorde(j, c.id); }, 0) : 0);
     CATEGORIAS.forEach(function (cat) {
       var caixa = $('recorde-' + cat.id);
       caixa.textContent = '';
       var recorde = j ? Pontuacao.recorde(j, cat.id) : 0;
       if (recorde <= 0) return;
-      var m = medalha(Pontuacao.estrelasDe(j, cat.id)) || img('img/estrela_placar.png');
+      var m = medalha(Pontuacao.estrelasDe(j, cat.id)) || img('img/estrela_placar.webp');
       caixa.appendChild(m);
       caixa.appendChild(document.createTextNode(String(recorde)));
       caixa.title = 'Recorde: ' + recorde;
@@ -517,7 +539,7 @@
     if (cat) categoriaAtual = cat;
     cat = categoriaAtual;
     var lista = window.LISTAS[cat.lista];
-    $('fundoCategoria').src = 'img/' + cat.fundo + '.png';
+    $('fundoCategoria').src = imagem(cat.fundo);
     esconderPlaquinha($('palavraCategoria'));
     var grade = $('gradeFiguras');
     grade.textContent = '';
@@ -745,7 +767,7 @@
         ? 'Você está em 1º lugar em ' + this.cat.nome + '!'
         : 'Você está em ' + lugar + 'º lugar em ' + this.cat.nome;
       document.querySelectorAll('.fim-estrelas img').forEach(function (e, i) {
-        e.src = i < estrelas ? 'img/estrela_placar.png' : 'img/estrela_vazia.png';
+        e.src = i < estrelas ? 'img/estrela_placar.webp' : 'img/estrela_vazia.webp';
         e.classList.remove('mostra');
         e.style.animationDelay = (300 + i * 250) + 'ms';
         void e.offsetWidth;
@@ -913,7 +935,7 @@
       var detalhe = ranking.filtro === null ? p.categorias + ' de ' + CATEGORIAS.length + ' categorias'
         : p.nivel ? p.nivel.nome : '';
       var quem = el('div', 'quem', [el('div', 'nome', [voce ? p.jogador + ' (você)' : p.jogador]), el('div', 'detalhe', [detalhe])]);
-      var pontos = el('div', 'pontos', [img('img/estrela_placar.png'), String(p.pontos)]);
+      var pontos = el('div', 'pontos', [img('img/estrela_placar.webp'), String(p.pontos)]);
       lista.appendChild(el('div', 'cartao linha-ranking' + (voce ? ' selecionado' : ''), [posicao, avatar, quem, pontos]));
     });
   }
@@ -940,7 +962,7 @@
       var resumo = partidas === 0 ? 'Ainda não jogou'
         : 'Melhor partida: ' + Pontuacao.recorde(jogador, cat.id) + ' pontos · ' + partidas + ' partidas';
       var texto = el('div', 'texto', [nome, el('div', 'det', [resumo]), el('div', 'det', [maisErradas(jogador, cat)])]);
-      lista.appendChild(el('div', 'cartao-pais', [img('img/' + cat.icone + '.png', 'icone'), texto]));
+      lista.appendChild(el('div', 'cartao-pais', [img(imagem(cat.icone), 'icone'), texto]));
     });
   };
 

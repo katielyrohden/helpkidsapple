@@ -20,23 +20,28 @@
 
 <!-- Tela inicial -->
 <section id="inicio" class="tela ativa">
-  <div class="inicio-conteudo">
-    <img class="welcome" src="img/welcome.png" alt="Welcome to Help Kids">
-    <button id="btnPlay" class="botao-img play" aria-label="Play"><img src="img/play.png" alt=""></button>
-  </div>
-  <button id="btnJogador" class="cartao chip-jogador"></button>
-  <button id="btnPais" class="botao-redondo canto-esquerdo" aria-label="Área dos pais"><img src="img/engrenagem.png" alt=""></button>
+  <!-- cenario das criancas com a placa (fundo_inicio); em pe ele fica sobre o campo (fundos_floresta) -->
+  <img class="fundo inicio-campo" src="img/fundos_floresta.webp" alt="">
+  <img class="fundo inicio-cena" src="img/fundo_inicio.webp" alt="Welcome to Help Kids">
+  <button id="btnJogador" class="nuvem nuvem-inicio"><span id="txtJogador"></span></button>
+  <button id="btnPais" class="botao-redondo engrenagem" aria-label="Área dos pais"><img src="img/engrenagem.webp" alt=""></button>
+  <button id="btnPlay" class="botao-img play-inicio" aria-label="Play"><img src="img/play.webp" alt=""></button>
 </section>
 
 <!-- Menu de categorias -->
 <section id="menu" class="tela">
-  <img class="fundo" src="img/fundos_floresta.png" alt="">
+  <img class="fundo" src="img/fundos_floresta.webp" alt="">
   <div class="conteudo">
+    <div class="topo">
+      <img class="logo" src="img/logo.webp" alt="HelpKids">
+      <div class="nuvem nuvem-titulo marrom"><span>Escolha uma atividade</span></div>
+      <span class="topo-lado"></span>
+    </div>
     <div class="rolagem"><div id="gradeMenu" class="grade-menu"></div></div>
     <div class="barra">
-      <button id="menuRanking" class="botao-redondo" aria-label="Ranking"><img src="img/trofeu.png" alt=""></button>
-      <span id="menuJogador" class="nome-barra"></span>
-      <button class="botao-img nav voltar" data-volta="inicio" aria-label="Voltar"><img src="img/back.png" alt=""></button>
+      <button id="menuRanking" class="contador" aria-label="Ranking"><img src="img/trofeu.webp" alt=""><span id="menuPontos">0</span></button>
+      <span class="espaco"></span>
+      <button class="botao-img nav voltar" data-volta="inicio" aria-label="Voltar"><img src="img/back.webp" alt=""></button>
     </div>
   </div>
 </section>
@@ -48,20 +53,20 @@
     <div class="rolagem"><div id="gradeFiguras" class="grade-figuras"></div></div>
     <div class="barra">
       <div class="lugar-palavra"><span id="palavraCategoria" class="plaquinha" aria-live="polite"></span></div>
-      <button class="botao-img nav voltar" data-volta="menu" aria-label="Voltar"><img src="img/back.png" alt=""></button>
-      <button id="btnJogar" class="botao-img nav" aria-label="Jogar"><img src="img/next.png" alt=""></button>
+      <button class="botao-img nav voltar" data-volta="menu" aria-label="Voltar"><img src="img/back.webp" alt=""></button>
+      <button id="btnJogar" class="botao-img nav" aria-label="Jogar"><img src="img/next.webp" alt=""></button>
     </div>
   </div>
 </section>
 
 <!-- Jogo: ouca e toque na figura certa -->
 <section id="jogo" class="tela">
-  <img class="fundo" src="img/fundos_floresta.png" alt="">
+  <img class="fundo" src="img/fundos_floresta.webp" alt="">
   <div class="conteudo">
     <div class="placar">
       <div class="placar-pontos">
         <span id="txtGanho" class="ganho"></span>
-        <img id="imgEstrela" src="img/estrela_placar.png" alt="">
+        <img id="imgEstrela" src="img/estrela_placar.webp" alt="">
         <span id="txtPontos">0</span>
       </div>
       <div id="txtProgresso" class="progresso"></div>
@@ -70,13 +75,13 @@
     </div>
     <div class="area-jogo">
       <div class="coluna-som">
-        <button id="btnSom" class="botao-img som" aria-label="Ouvir de novo"><img src="img/som.png" alt=""></button>
+        <button id="btnSom" class="botao-img som" aria-label="Ouvir de novo"><img src="img/som.webp" alt=""></button>
         <span id="palavraJogo" class="plaquinha" aria-live="polite"></span>
       </div>
       <div id="gradeOpcoes" class="grade-opcoes"></div>
     </div>
     <div class="barra">
-      <button class="botao-img nav voltar" data-volta="menu" aria-label="Voltar"><img src="img/back.png" alt=""></button>
+      <button class="botao-img nav voltar" data-volta="menu" aria-label="Voltar"><img src="img/back.webp" alt=""></button>
     </div>
   </div>
 
@@ -84,7 +89,7 @@
   <div id="aviso" class="camada aviso">
     <canvas id="fogos" class="fogos"></canvas>
     <div class="aviso-meio">
-      <img id="avisoSeta" class="seta" src="img/seta_repetir.png" alt="">
+      <img id="avisoSeta" class="seta" src="img/seta_repetir.webp" alt="">
       <span id="avisoTexto" class="aviso-texto"></span>
     </div>
   </div>
@@ -96,15 +101,15 @@
       <div class="fim-conteudo">
         <div id="fimTitulo" class="titulo-grande"></div>
         <div class="fim-estrelas">
-          <img src="img/estrela_vazia.png" alt=""><img class="meio" src="img/estrela_vazia.png" alt=""><img src="img/estrela_vazia.png" alt="">
+          <img src="img/estrela_vazia.webp" alt=""><img class="meio" src="img/estrela_vazia.webp" alt=""><img src="img/estrela_vazia.webp" alt="">
         </div>
         <div id="fimPontos" class="fim-pontos"></div>
         <div id="fimRecorde" class="fim-recorde">Novo recorde!</div>
         <div id="fimPosicao" class="fim-posicao"></div>
         <div class="fim-botoes">
-          <button class="botao-img nav voltar" data-volta="menu" aria-label="Voltar"><img src="img/back.png" alt=""></button>
-          <button id="fimRanking" class="botao-redondo grande" aria-label="Ranking"><img src="img/trofeu.png" alt=""></button>
-          <button id="fimDeNovo" class="botao-img nav" aria-label="Jogar de novo"><img src="img/play.png" alt=""></button>
+          <button class="botao-img nav voltar" data-volta="menu" aria-label="Voltar"><img src="img/back.webp" alt=""></button>
+          <button id="fimRanking" class="botao-redondo grande" aria-label="Ranking"><img src="img/trofeu.webp" alt=""></button>
+          <button id="fimDeNovo" class="botao-img nav" aria-label="Jogar de novo"><img src="img/play.webp" alt=""></button>
         </div>
       </div>
     </div>
@@ -119,21 +124,22 @@
         <div id="botoesNivel" class="botoes-nivel"></div>
       </div>
     </div>
-    <button class="botao-img nav voltar canto-baixo" data-volta="menu" aria-label="Voltar"><img src="img/back.png" alt=""></button>
+    <button class="botao-img nav voltar canto-baixo" data-volta="menu" aria-label="Voltar"><img src="img/back.webp" alt=""></button>
   </div>
 </section>
 
 <!-- Quem vai jogar? -->
 <section id="jogadores" class="tela">
-  <img class="fundo" src="img/fundos_floresta.png" alt="">
+  <img class="fundo" src="img/fundos_floresta.webp" alt="">
   <div class="conteudo">
-    <div class="cabecalho">
-      <h1 class="titulo-tela">Quem vai jogar?</h1>
-      <button id="jogadoresVoltar" class="botao-img nav" aria-label="Voltar"><img src="img/back.png" alt=""></button>
+    <div class="topo">
+      <img class="logo" src="img/logo.webp" alt="HelpKids">
+      <h1 class="nuvem nuvem-titulo"><span>Quem vai jogar?</span></h1>
+      <span class="topo-lado"><button id="jogadoresVoltar" class="botao-img nav" aria-label="Voltar"><img src="img/back.webp" alt=""></button></span>
     </div>
     <div class="rolagem">
       <div id="listaJogadores" class="grade-jogadores"></div>
-      <button id="novoJogador" class="cartao novo-jogador">+ Novo jogador</button>
+      <button id="novoJogador" class="botao-pilula novo-jogador">+ Novo jogador</button>
       <p class="dica">Toque no nome para jogar · toque e segure para remover</p>
     </div>
   </div>
@@ -141,12 +147,12 @@
 
 <!-- Ranking -->
 <section id="ranking" class="tela">
-  <img class="fundo" src="img/fundos_floresta.png" alt="">
+  <img class="fundo" src="img/fundos_floresta.webp" alt="">
   <div class="conteudo">
-    <div class="cabecalho">
-      <img class="icone-titulo" src="img/trofeu.png" alt="">
-      <h1 class="titulo-tela">Ranking</h1>
-      <button id="rankingVoltar" class="botao-img nav" aria-label="Voltar"><img src="img/back.png" alt=""></button>
+    <div class="topo">
+      <img class="logo" src="img/logo.webp" alt="HelpKids">
+      <h1 class="nuvem nuvem-titulo"><span>Ranking</span></h1>
+      <span class="topo-lado"><button id="rankingVoltar" class="botao-img nav" aria-label="Voltar"><img src="img/back.webp" alt=""></button></span>
     </div>
     <div id="filtrosRanking" class="filtros"></div>
     <div class="rolagem"><div id="listaRanking" class="lista-ranking"></div></div>
@@ -158,7 +164,7 @@
   <div class="conteudo">
     <div class="cabecalho">
       <h1 class="titulo-tela escuro">Área dos pais</h1>
-      <button class="botao-img nav voltar" data-volta="inicio" aria-label="Voltar"><img src="img/back.png" alt=""></button>
+      <button class="botao-img nav voltar" data-volta="inicio" aria-label="Voltar"><img src="img/back.webp" alt=""></button>
     </div>
     <div class="rolagem">
       <div class="pais-conteudo">
@@ -169,7 +175,7 @@
         </label>
         <div id="listaCategoriasPais"></div>
         <button id="zerar" class="botao-texto">Zerar progresso</button>
-        <p class="creditos">Figuras de Corpo e Alimentos: OpenMoji (openmoji.org), licença CC BY-SA 4.0.</p>
+        <p class="creditos">Figuras da mão e do olho: OpenMoji (openmoji.org), licença CC BY-SA 4.0. Letra Sniglet: SIL Open Font License (fontes/OFL.txt).</p>
       </div>
     </div>
   </div>
@@ -178,12 +184,14 @@
 <!-- caixa de dialogo (nome do jogador, continha dos pais, confirmacoes) -->
 <div id="dialogo" class="dialogo-fundo" hidden>
   <form id="dialogoCaixa" class="dialogo" method="dialog">
+    <img class="dialogo-estrela" src="img/estrela_placar.webp" alt="">
+    <button type="button" id="dialogoFechar" class="dialogo-fechar" aria-label="Fechar"><img src="img/fechar.webp" alt=""></button>
     <div id="dialogoTitulo" class="dialogo-titulo"></div>
     <div id="dialogoTexto" class="dialogo-texto"></div>
     <input id="dialogoCampo" class="dialogo-campo" autocomplete="off">
     <div class="dialogo-botoes">
-      <button type="button" id="dialogoCancelar" class="botao-texto">Cancelar</button>
-      <button type="submit" id="dialogoOk" class="botao-texto forte">OK</button>
+      <button type="button" id="dialogoCancelar" class="botao-pilula">Cancelar</button>
+      <button type="submit" id="dialogoOk" class="botao-pilula verde">OK</button>
     </div>
   </form>
 </div>
