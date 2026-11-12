@@ -763,3 +763,53 @@ img { -webkit-user-drag: none; }
 @media (orientation: landscape) {
   .item-menu button { width: max(var(--menu-item), min(27vh, 18vw)); height: calc(max(var(--menu-item), min(27vh, 18vw)) * 1.1); }
 }
+
+/* tela inicial deitada: o cenario aparece INTEIRO (nunca cortado), num quadro 16:9 do maior tamanho
+   que cabe; sobra de tela vira ceu e grama (fundos_floresta). Nuvem, nome e PLAY ficam presos ao
+   cenario, nos mesmos lugares do desenho, em qualquer formato de tela. */
+@media (orientation: landscape) {
+  #inicio {
+    --cw: min(100vw, calc(100vh * 16 / 9));
+    --ch: calc(var(--cw) * 9 / 16);
+    --cx: calc((100vw - var(--cw)) / 2);
+    --cy: calc((100vh - var(--ch)) / 2);
+  }
+  .inicio-campo { display: block; }
+  .inicio-cena {
+    inset: auto;
+    left: var(--cx);
+    top: var(--cy);
+    width: var(--cw);
+    height: var(--ch);
+    object-fit: fill;
+  }
+  .titulo-inicio {
+    top: calc(var(--cy) + var(--ch) * .03);
+    width: calc(var(--cw) * .38);
+  }
+  .etiqueta-jogador {
+    top: calc(var(--cy) + var(--ch) * .03 + var(--cw) * .38 * 130 / 900);
+    left: calc(50% + var(--cw) * .19 + 6px);
+    transform: translateY(-50%);
+    font-size: max(16px, calc(var(--cw) * .017));
+    padding: .1em .8em;
+  }
+  .play-inicio {
+    bottom: calc(var(--cy) + var(--ch) * .045);
+    width: calc(var(--cw) * .32);
+  }
+}
+/* tela mais larga que 16:9: as laterais do cenario se desfazem no ceu */
+@media (orientation: landscape) and (min-aspect-ratio: 16/9) {
+  .inicio-cena {
+    -webkit-mask-image: linear-gradient(to right, transparent, #000 5%, #000 95%, transparent);
+    mask-image: linear-gradient(to right, transparent, #000 5%, #000 95%, transparent);
+  }
+}
+/* mais estreita (tablet 4:3, 16:10): o alto e o baixo se desfazem */
+@media (orientation: landscape) and (max-aspect-ratio: 16/9) {
+  .inicio-cena {
+    -webkit-mask-image: linear-gradient(transparent, #000 4%, #000 96%, transparent);
+    mask-image: linear-gradient(transparent, #000 4%, #000 96%, transparent);
+  }
+}
