@@ -428,7 +428,7 @@
 
   function medalha(estrelas) {
     if (estrelas <= 0) return null;
-    return img('icones/medalha_' + (estrelas >= 3 ? 'ouro' : estrelas === 2 ? 'prata' : 'bronze') + '.svg');
+    return img('img/medalha_' + (estrelas >= 3 ? 'ouro' : estrelas === 2 ? 'prata' : 'bronze') + '.png');
   }
 
   function mostrarPlaquinha(elemento, texto) {
@@ -500,7 +500,7 @@
       caixa.textContent = '';
       var recorde = j ? Pontuacao.recorde(j, cat.id) : 0;
       if (recorde <= 0) return;
-      var m = medalha(Pontuacao.estrelasDe(j, cat.id)) || img('icones/estrela.svg');
+      var m = medalha(Pontuacao.estrelasDe(j, cat.id)) || img('img/estrela_placar.png');
       caixa.appendChild(m);
       caixa.appendChild(document.createTextNode(String(recorde)));
       caixa.title = 'Recorde: ' + recorde;
@@ -745,7 +745,7 @@
         ? 'Você está em 1º lugar em ' + this.cat.nome + '!'
         : 'Você está em ' + lugar + 'º lugar em ' + this.cat.nome;
       document.querySelectorAll('.fim-estrelas img').forEach(function (e, i) {
-        e.src = i < estrelas ? 'icones/estrela.svg' : 'icones/estrela_vazia.svg';
+        e.src = i < estrelas ? 'img/estrela_placar.png' : 'img/estrela_vazia.png';
         e.classList.remove('mostra');
         e.style.animationDelay = (300 + i * 250) + 'ms';
         void e.offsetWidth;
@@ -913,7 +913,7 @@
       var detalhe = ranking.filtro === null ? p.categorias + ' de ' + CATEGORIAS.length + ' categorias'
         : p.nivel ? p.nivel.nome : '';
       var quem = el('div', 'quem', [el('div', 'nome', [voce ? p.jogador + ' (você)' : p.jogador]), el('div', 'detalhe', [detalhe])]);
-      var pontos = el('div', 'pontos', [img('icones/estrela.svg'), String(p.pontos)]);
+      var pontos = el('div', 'pontos', [img('img/estrela_placar.png'), String(p.pontos)]);
       lista.appendChild(el('div', 'cartao linha-ranking' + (voce ? ' selecionado' : ''), [posicao, avatar, quem, pontos]));
     });
   }
