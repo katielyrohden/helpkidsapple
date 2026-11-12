@@ -23,7 +23,8 @@
   <!-- cenario das criancas com a placa (fundo_inicio); em pe ele fica sobre o campo (fundos_floresta) -->
   <img class="fundo inicio-campo" src="img/fundos_floresta.webp" alt="">
   <img class="fundo inicio-cena" src="img/fundo_inicio.webp" alt="Welcome to Help Kids">
-  <button id="btnJogador" class="nuvem nuvem-inicio"><span id="txtJogador"></span></button>
+  <button id="btnJogador" class="titulo-inicio" aria-label="Quem vai jogar?"><img src="img/titulo_quem_vai_jogar.webp" alt=""></button>
+  <span id="txtJogador" class="etiqueta-jogador"></span>
   <button id="btnPais" class="botao-redondo engrenagem" aria-label="Área dos pais"><img src="img/engrenagem.webp" alt=""></button>
   <button id="btnPlay" class="botao-img play-inicio" aria-label="Play"><img src="img/play.webp" alt=""></button>
 </section>
@@ -34,7 +35,7 @@
   <div class="conteudo">
     <div class="topo">
       <img class="logo" src="img/logo.webp" alt="HelpKids">
-      <div class="nuvem nuvem-titulo marrom"><span>Escolha uma atividade</span></div>
+      <h1 class="titulo"><img src="img/titulo_escolha_atividade.webp" alt="Escolha uma atividade"></h1>
       <span class="topo-lado"></span>
     </div>
     <div class="rolagem"><div id="gradeMenu" class="grade-menu"></div></div>
@@ -134,12 +135,12 @@
   <div class="conteudo">
     <div class="topo">
       <img class="logo" src="img/logo.webp" alt="HelpKids">
-      <h1 class="nuvem nuvem-titulo"><span>Quem vai jogar?</span></h1>
+      <h1 class="titulo"><img src="img/titulo_quem_vai_jogar.webp" alt="Quem vai jogar?"></h1>
       <span class="topo-lado"><button id="jogadoresVoltar" class="botao-img nav" aria-label="Voltar"><img src="img/back.webp" alt=""></button></span>
     </div>
     <div class="rolagem">
       <div id="listaJogadores" class="grade-jogadores"></div>
-      <button id="novoJogador" class="botao-pilula novo-jogador">+ Novo jogador</button>
+      <button id="novoJogador" class="botao-arte novo-jogador" aria-label="+ Novo jogador"><img src="img/botao_novo_jogador.webp" alt=""></button>
       <p class="dica">Toque no nome para jogar · toque e segure para remover</p>
     </div>
   </div>
@@ -151,7 +152,7 @@
   <div class="conteudo">
     <div class="topo">
       <img class="logo" src="img/logo.webp" alt="HelpKids">
-      <h1 class="nuvem nuvem-titulo"><span>Ranking</span></h1>
+      <h1 class="titulo"><img src="img/titulo_ranking.webp" alt="Ranking"></h1>
       <span class="topo-lado"><button id="rankingVoltar" class="botao-img nav" aria-label="Voltar"><img src="img/back.webp" alt=""></button></span>
     </div>
     <div id="filtrosRanking" class="filtros"></div>
@@ -163,7 +164,7 @@
 <section id="pais" class="tela tela-clara">
   <div class="conteudo">
     <div class="cabecalho">
-      <h1 class="titulo-tela escuro">Área dos pais</h1>
+      <h1 class="titulo titulo-pais"><img src="img/titulo_area_dos_pais.webp" alt="Área dos pais"></h1>
       <button class="botao-img nav voltar" data-volta="inicio" aria-label="Voltar"><img src="img/back.webp" alt=""></button>
     </div>
     <div class="rolagem">
@@ -186,12 +187,13 @@
   <form id="dialogoCaixa" class="dialogo" method="dialog">
     <img class="dialogo-estrela" src="img/estrela_placar.webp" alt="">
     <button type="button" id="dialogoFechar" class="dialogo-fechar" aria-label="Fechar"><img src="img/fechar.webp" alt=""></button>
+    <img id="dialogoTituloImg" class="dialogo-titulo-img" alt="">
     <div id="dialogoTitulo" class="dialogo-titulo"></div>
     <div id="dialogoTexto" class="dialogo-texto"></div>
     <input id="dialogoCampo" class="dialogo-campo" autocomplete="off">
     <div class="dialogo-botoes">
-      <button type="button" id="dialogoCancelar" class="botao-pilula">Cancelar</button>
-      <button type="submit" id="dialogoOk" class="botao-pilula verde">OK</button>
+      <button type="button" id="dialogoCancelar" class="botao-arte" aria-label="Cancelar"><img src="img/botao_cancelar.webp" alt=""></button>
+      <button type="submit" id="dialogoOk" class="botao-arte" aria-label="OK"><img id="dialogoOkImg" src="img/botao_ok.webp" alt=""></button>
     </div>
   </form>
 </div>

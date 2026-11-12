@@ -684,3 +684,72 @@ img { -webkit-user-drag: none; }
   .topo { grid-template-columns: auto 1fr auto; gap: 8px; }
   .topo .nuvem-titulo { width: 100%; justify-self: center; max-width: 420px; }
 }
+
+/* ---------- artes com a escrita pronta (titulos, botoes, niveis) ---------- */
+.titulo { margin: 0; line-height: 0; justify-self: center; }
+.titulo img { height: clamp(52px, 12vh, 124px); width: auto; max-width: 52vw; pointer-events: none; }
+.titulo-pais img { height: clamp(48px, 9vh, 96px); }
+.cabecalho .titulo { flex: 1; text-align: left; }
+
+.titulo-inicio {
+  position: absolute;
+  top: calc(var(--margem) * .6 + var(--topo));
+  left: 50%;
+  transform: translateX(-50%);
+  width: min(44vw, 560px);
+}
+.titulo-inicio img, .botao-arte img { display: block; width: 100%; height: auto; pointer-events: none; }
+.titulo-inicio:active { transform: translateX(-50%) scale(.95); }
+/* nome do jogador escolhido, numa plaquinha embaixo da nuvem */
+.etiqueta-jogador {
+  position: absolute;
+  top: calc(var(--margem) * .6 + var(--topo) + min(44vw, 560px) * 260 / 900);
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 2px 18px;
+  border-radius: 999px;
+  background: #FFF4DE;
+  border: 2px dashed #E3B77B;
+  color: #1F4E96;
+  font-size: clamp(16px, 2.4vw, 28px);
+  font-weight: 800;
+  white-space: nowrap;
+  pointer-events: none;
+}
+.etiqueta-jogador:empty { display: none; }
+@media (orientation: portrait) {
+  .titulo-inicio { top: calc(var(--margem) + var(--topo) + var(--redondo) * 1.35 + 6px); width: min(80vw, 520px); }
+  .etiqueta-jogador { top: calc(var(--margem) + var(--topo) + var(--redondo) * 1.35 + 6px + min(80vw, 520px) * 260 / 900); font-size: clamp(16px, 5vw, 26px); }
+  .titulo img { max-width: 60vw; height: auto; max-height: 90px; }
+}
+
+.botao-arte { display: inline-block; flex-shrink: 0; }
+.botao-arte:active { transform: scale(.95); }
+.novo-jogador { display: block; width: clamp(200px, 26vw, 300px); margin: 14px auto 0; }
+.dialogo-botoes .botao-arte { width: clamp(120px, 34%, 170px); }
+.dialogo-titulo-img { display: block; width: min(80%, 380px); margin: 0 auto; pointer-events: none; }
+.dialogo-titulo-img[hidden] { display: none; }
+
+/* nivel: o cartao (Easy, Medium, Hard) e arte; embaixo do nome, o app escreve figuras e pontos */
+.botao-nivel { position: relative; padding: 0; background: none; opacity: .85; }
+.botao-nivel .arte { display: block; width: 100%; height: auto; pointer-events: none; }
+.botao-nivel .info {
+  position: absolute;
+  left: 8%;
+  right: 8%;
+  top: 44%;
+  margin: 0;
+  color: #4E342E;
+  font-weight: 800;
+  text-shadow: 0 1px 2px rgba(255, 255, 255, .8);
+}
+.botao-nivel.preferido { box-shadow: none; filter: drop-shadow(0 0 6px rgba(255, 255, 255, .9)); }
+.botao-nivel .info { font-size: calc(var(--nivel-info) * .82); line-height: 1.25; }
+/* deitado: o nome do jogador fica a direita da nuvem (embaixo dela fica a estrela da placa) */
+@media (orientation: landscape) {
+  .etiqueta-jogador {
+    top: calc(var(--margem) * .6 + var(--topo) + min(44vw, 560px) * 130 / 900);
+    left: calc(50% + min(44vw, 560px) / 2 + 8px);
+    transform: translateY(-50%);
+  }
+}

@@ -20,9 +20,9 @@
 
   // Nivel.java
   var NIVEIS = [
-    {id: 'FACIL', nome: 'Easy', figuras: 2, primeira: 5, segunda: 0, cor: '#43A047'},
-    {id: 'MEDIO', nome: 'Medium', figuras: 4, primeira: 10, segunda: 5, cor: '#FB8C00'},
-    {id: 'DIFICIL', nome: 'Hard', figuras: 8, primeira: 15, segunda: 10, cor: '#E53935'}
+    {id: 'FACIL', nome: 'Easy', arte: 'nivel_easy', figuras: 2, primeira: 5, segunda: 0, cor: '#43A047'},
+    {id: 'MEDIO', nome: 'Medium', arte: 'nivel_medium', figuras: 4, primeira: 10, segunda: 5, cor: '#FB8C00'},
+    {id: 'DIFICIL', nome: 'Hard', arte: 'nivel_hard', figuras: 8, primeira: 15, segunda: 10, cor: '#E53935'}
   ];
 
   var PERGUNTAS_POR_PARTIDA = 10;
@@ -406,9 +406,14 @@
   function dialogo(opcoes) {
     return new Promise(function (resolver) {
       var fundo = $('dialogo'), campo = $('dialogoCampo');
-      $('dialogoTitulo').textContent = opcoes.titulo || '';
+      // titulo e botao OK sao artes com a escrita (opcoes.tituloArte, opcoes.okArte); texto so se nao houver arte
+      var tituloImg = $('dialogoTituloImg');
+      tituloImg.hidden = !opcoes.tituloArte;
+      if (opcoes.tituloArte) { tituloImg.src = imagem(opcoes.tituloArte); tituloImg.alt = opcoes.titulo || ''; }
+      $('dialogoTitulo').textContent = opcoes.tituloArte ? '' : (opcoes.titulo || '');
       $('dialogoTexto').textContent = opcoes.texto || '';
-      $('dialogoOk').textContent = opcoes.ok || 'OK';
+      $('dialogoOkImg').src = imagem(opcoes.okArte || 'botao_ok');
+      $('dialogoOk').setAttribute('aria-label', opcoes.ok || 'OK');
       campo.style.display = opcoes.campo ? '' : 'none';
       campo.value = '';
       campo.placeholder = (opcoes.campo && opcoes.campo.dica) || '';
@@ -477,7 +482,8 @@
 
   aoMostrar.inicio = function () {
     var j = Jogadores.atual();
-    $('txtJogador').textContent = j ? 'Jogador: ' + j : 'Quem vai jogar?';
+    // a nuvem "Quem vai jogar?" e arte; o nome do jogador escolhido aparece numa plaquinha embaixo
+    $('txtJogador').textContent = j || '';
   };
 
   $('btnPlay').addEventListener('click', function () {
@@ -491,7 +497,7 @@
   // engrenagem: uma continha antes da area dos pais
   $('btnPais').addEventListener('click', function () {
     var a = 3 + Math.floor(Math.random() * 7), b = 3 + Math.floor(Math.random() * 7);
-    dialogo({titulo: 'Área dos pais', texto: 'Quanto é ' + a + ' + ' + b + '?', campo: {numero: true, dica: '?', max: 3}})
+    dialogo({titulo: 'Área dos pais', tituloArte: 'titulo_area_dos_pais', texto: 'Quanto é ' + a + ' + ' + b + '?', campo: {numero: true, dica: '?', max: 3}})
       .then(function (resposta) {
         if (resposta === null) return;
         if (String(a + b) === resposta.trim()) mostrar('pais');
@@ -606,10 +612,10 @@
       caixa.textContent = '';
       NIVEIS.forEach(function (n) {
         var b = el('button', 'botao-nivel' + (n === preferido ? ' preferido' : ''), [
-          el('span', 'nome', [n.nome]),
-          el('span', 'info', [n.figuras + ' figuras\n1ª: ' + n.primeira + ' pts · 2ª: ' + n.segunda + ' pts'])
+          img(imagem(n.arte), 'arte'),
+          el('span', 'info', [n.figuras + ' figuras\n1ª ' + n.primeira + ' · 2ª ' + n.segunda + ' pts'])
         ]);
-        b.style.background = n.cor;
+        b.setAttribute('aria-label', n.nome);
         b.addEventListener('click', function () {
           Sons.tocar('play');
           Jogadores.salvarNivel(self.jogador, n);
@@ -869,7 +875,7 @@
   }
 
   function novoJogador() {
-    dialogo({titulo: '+ Novo jogador', campo: {dica: 'Nome do jogador', max: TAMANHO_MAXIMO_NOME}}).then(function (nome) {
+    dialogo({titulo: '+ Novo jogador', tituloArte: 'titulo_novo_jogador', campo: {dica: 'Nome do jogador', max: TAMANHO_MAXIMO_NOME}}).then(function (nome) {
       if (nome === null) return;
       var limpo = Jogadores.adicionar(nome);
       if (!limpo) {
@@ -881,7 +887,7 @@
   }
 
   function confirmarRemocao(nome) {
-    dialogo({texto: 'Remover ' + nome + '? Os recordes dele continuam no ranking.', ok: 'Remover'}).then(function (sim) {
+    dialogo({texto: 'Remover ' + nome + '? Os recordes dele continuam no ranking.', ok: 'Remover', okArte: 'botao_remover'}).then(function (sim) {
       if (!sim) return;
       Jogadores.remover(nome);
       listarJogadores();
@@ -979,7 +985,7 @@
   $('somLigado').addEventListener('change', function () { Sons.setLigado(this.checked); });
 
   $('zerar').addEventListener('click', function () {
-    dialogo({titulo: 'Zerar progresso', texto: 'Apagar recordes, partidas e erros de todas as categorias?', ok: 'Zerar'})
+    dialogo({titulo: 'Zerar progresso', tituloArte: 'titulo_zerar', texto: 'Apagar recordes, partidas e erros de todas as categorias?', ok: 'Zerar', okArte: 'botao_zerar'})
       .then(function (sim) {
         if (!sim) return;
         Pontuacao.zerarTudo();

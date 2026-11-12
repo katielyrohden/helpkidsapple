@@ -1,7 +1,7 @@
 // Guarda todos os arquivos do HelpKids no aparelho, para funcionar sem internet.
 // A versao e a lista de arquivos sao preenchidas por ferramentas/MontarWeb.java; quando qualquer
 // arquivo muda, a versao muda e o aparelho baixa tudo de novo na proxima vez que abrir com internet.
-var VERSAO = '3fdd9e2b50d6';
+var VERSAO = 'a2a220f79638';
 var ARQUIVOS = [
   './',
   './app.css',
@@ -30,6 +30,11 @@ var ARQUIVOS = [
   './img/boca.webp',
   './img/bolo.webp',
   './img/borboleta.webp',
+  './img/botao_cancelar.webp',
+  './img/botao_novo_jogador.webp',
+  './img/botao_ok.webp',
+  './img/botao_remover.webp',
+  './img/botao_zerar.webp',
   './img/braco.webp',
   './img/branco.webp',
   './img/cachorro.webp',
@@ -125,6 +130,9 @@ var ARQUIVOS = [
   './img/morango.webp',
   './img/nariz.webp',
   './img/next.webp',
+  './img/nivel_easy.webp',
+  './img/nivel_hard.webp',
+  './img/nivel_medium.webp',
   './img/nove.webp',
   './img/numeros.webp',
   './img/nuvem_titulo.webp',
@@ -162,6 +170,12 @@ var ARQUIVOS = [
   './img/som.webp',
   './img/sorvete.webp',
   './img/suco.webp',
+  './img/titulo_area_dos_pais.webp',
+  './img/titulo_escolha_atividade.webp',
+  './img/titulo_novo_jogador.webp',
+  './img/titulo_quem_vai_jogar.webp',
+  './img/titulo_ranking.webp',
+  './img/titulo_zerar.webp',
   './img/tomate.webp',
   './img/trapezio.webp',
   './img/tres.webp',
