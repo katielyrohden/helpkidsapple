@@ -482,9 +482,8 @@
 
   aoMostrar.inicio = function () {
     var j = Jogadores.atual();
-    // sem jogador: a arte "Quem vai jogar?"; com jogador: a nuvem vazia com o nome dele dentro
+    // a nuvem "Quem vai jogar?" fica sempre; o nome do jogador escolhido aparece numa plaquinha embaixo dela
     $('txtJogador').textContent = j || '';
-    $('nuvemInicio').src = imagem(j ? 'nuvem_titulo' : 'titulo_quem_vai_jogar');
     $('btnJogador').setAttribute('aria-label', j ? 'Jogador: ' + j + ' (tocar para trocar)' : 'Quem vai jogar?');
   };
 

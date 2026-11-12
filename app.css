@@ -848,20 +848,26 @@ img { -webkit-user-drag: none; }
   }
 }
 
-/* nome do jogador escrito dentro da nuvem da tela inicial, na mesma letra e cor das artes */
+/* nome do jogador escolhido: plaquinha de papel pendurada embaixo da nuvem "Quem vai jogar?" */
 .titulo-inicio { --nuvem-w: min(44vw, 900px); }
 .nome-nuvem {
   position: absolute;
-  inset: 0 18%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  top: 80%;
+  left: 50%;
+  transform: translateX(-50%);
+  max-width: 90%;
+  padding: .12em .9em .18em;
+  border-radius: 999px;
+  background: #FFF4DE;
+  border: 2px dashed #E3B77B;
+  box-shadow: 0 3px 8px rgba(0, 0, 0, .15);
   color: #1F4E96;
-  font-size: calc(var(--nuvem-w) * .11);
+  font-size: calc(var(--nuvem-w) * .07);
   font-weight: 600;
-  line-height: 1;
+  line-height: 1.1;
   white-space: nowrap;
   overflow: hidden;
+  text-overflow: ellipsis;
   pointer-events: none;
 }
 .nome-nuvem:empty { display: none; }
